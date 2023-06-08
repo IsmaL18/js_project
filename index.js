@@ -7,5 +7,23 @@ const resultList = [
     {number_bib: '1999', gender: 'F', result: '1:15.1', country:'usa', age : '46'}
 ];
 
+
+
+
+const fs = require('fs');
+
+
+
+fs.readFile('C:\\Users\\hanif\\OneDrive\\Bureau\\JAVASCRIPT\\js_project\\Dataset-Boston-2019.csv', 'utf8', (error, data) => {
+    if (error) {
+        console.error('Une erreur s\'est produite lors du chargement du dataset :', error);
+        return;
+    }
+
+    // Traitez le dataset ici
+    console.log(data);
+});
+
+
 // RANKING FUNCTIONS PART
 
