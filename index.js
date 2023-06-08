@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 const fs = require('fs');
 const R = require('ramda');
+=======
+const resultList = [
+    {number_bib: '1234', gender: 'M', result: '1:34.2', country:'kenya', age : '20'},
+    {number_bib: '1235', gender: 'F', result: '1:37.2', country:'france', age : '370'},
+    {number_bib: '1239', gender: 'M', result: '1:42.2', country:'usa',age : '18'},
+    {number_bib: '1237', gender: 'F', result: '2:34.5', country:'france', age : '60'},
+    {number_bib: '1232', gender: 'F', result: '3:13.2', country:'kenya', age : '50'},
+    {number_bib: '1238', gender: 'M', result: '0:13.2', country:'france', age : '99'}
+    {number_bib: '1999', gender: 'F', result: '1:15.1', country:'usa', age : '46'}
+];
+>>>>>>> 169ee34f32ed99381c7d35320f412980bcdc2bc9
 
 const filePath = 'C:/Users/hanif/OneDrive/Bureau/JAVASCRIPT/js_project/Dataset-Boston-2019.csv';
 
