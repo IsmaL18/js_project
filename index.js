@@ -1,19 +1,51 @@
-<<<<<<< HEAD
 const fs = require('fs');
 const R = require('ramda');
-=======
-const resultList = [
-    {number_bib: '1234', gender: 'M', result: '1:34.2', country:'kenya', age : '20'},
-    {number_bib: '1235', gender: 'F', result: '1:37.2', country:'france', age : '370'},
-    {number_bib: '1239', gender: 'M', result: '1:42.2', country:'usa',age : '18'},
-    {number_bib: '1237', gender: 'F', result: '2:34.5', country:'france', age : '60'},
-    {number_bib: '1232', gender: 'F', result: '3:13.2', country:'kenya', age : '50'},
-    {number_bib: '1238', gender: 'M', result: '0:13.2', country:'france', age : '99'}
-    {number_bib: '1999', gender: 'F', result: '1:15.1', country:'usa', age : '46'}
-];
->>>>>>> 169ee34f32ed99381c7d35320f412980bcdc2bc9
 
-const filePath = 'C:/Users/hanif/OneDrive/Bureau/JAVASCRIPT/js_project/Dataset-Boston-2019.csv';
+const filePath = 'Dataset-Boston-2019.csv';
+
+const stringToTimeInMinutes = (s) => {
+    const [hour, min] = s.split(':');
+    return Number(hour) * 60 + Number(min);
+};
+
+const getSortedList = R.pipe (
+    R.map(
+        R.when(
+            R.has('result'),
+            R.over(R.lensProp('result'), stringToTimeInMinutes)
+        )
+    ),
+    R.sortBy(R.prop('result'))
+);
+
+const getRankingMen = R.pipe(
+    R.filter(x => x.gender === 'M'),
+    getSortedList,
+    R.head(10)
+);
+// exemple d'utilisation: getRankingMen(resultList)
+
+const getRankingWomen = R.pipe(
+    R.filter(x => x.gender === 'F'),
+    getSortedList,
+    R.head(10)
+);
+// exemple d'utilisation:
+
+const getRankingByAge = (minAge, maxAge) => R.pipe(
+    R.filter(R.both((x => minAge <= parseInt(x.age)),(x => parseInt(x.age) <= maxAge))),
+    getSortedList,
+    R.head(10)
+);
+// exemple d'utilisation: getRankingByCountry('kenya')(resultList)
+
+const getRankingByCountry = (country) => R.pipe(
+    R.filter(x => x.country === country),
+    getSortedList,
+    R.head(10)
+);
+// exemple d'utilisation: getRankingByAge(0, 20)(resultList) renvoie le classement des participants qui ont entre 0 et 20 ans
+
 
 fs.readFile(filePath, 'utf8', (error, data) => {
     if (error) {
@@ -44,17 +76,11 @@ fs.readFile(filePath, 'utf8', (error, data) => {
     // Créer le tableau resultList avec les propriétés spécifiées, y compris number_bib
     const resultList = datasetWithRandomNumberBib.map(participant => {
         return {
-            Gender: participant.Gender,
-            Result_hr: participant.Result_hr,
-            Country: participant.Country,
-            Age: participant.Age,
+            gender: participant.Gender,
+            result_hr: participant.Result_hr,
+            country: participant.Country,
+            age: participant.Age,
             number_bib: participant.number_bib
         };
     });
-
-    // Afficher le resultList
-    console.log(resultList);
 });
-
-
-//const filePath = 'C:/Users/hanif/OneDrive/Bureau/JAVASCRIPT/js_project/Dataset-Boston-2019.csv';
