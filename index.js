@@ -112,29 +112,34 @@ let shuffledResultList = resultList.sort(() => Math.random() - 0.5);
 
 // Interaction utilisateur pour obtenir le classement souhaité
 const obtenirClassement = () => {
-    const typeClassement = readlineSync.question('Quel type de classement souhaitez-vous ? (genre/age/pays): ');
+    let state = 'oui';
 
-    if (typeClassement === 'genre') {
-        const genreDemande = readlineSync.question('Quel genre souhaitez-vous ? (homme/femme): ');
-        if (genreDemande === 'homme'){
-            console.log(getRankingMen(shuffledResultList))
+    while (state === 'oui') {
+        const typeClassement = readlineSync.question('Quel type de classement souhaitez-vous ? (genre/age/pays): ');
+
+        if (typeClassement === 'genre') {
+            const genreDemande = readlineSync.question('Quel genre souhaitez-vous ? (homme/femme): ');
+            if (genreDemande === 'homme') {
+                console.log(getRankingMen(shuffledResultList))
+            } else if (genreDemande === 'femme') {
+                console.log(getRankingWomen(shuffledResultList))
+            } else {
+                console.log("Il y a un problème.")
+            }
+        } else if (typeClassement === 'age') {
+            const ageInf = parseInt(readlineSync.question('Quel âge minimum souhaitez-vous ? : '));
+            const ageSup = parseInt(readlineSync.question('Quel âge maximum souhaitez-vous ? : '));
+            console.log(getRankingByAge(ageInf, ageSup)(shuffledResultList));
+        } else if (typeClassement === 'pays') {
+            const paysDemande = readlineSync.question('Entrez le pays souhaité : ');
+            console.log(getRankingByCountry(paysDemande)(shuffledResultList));
+        } else {
+            console.log('Type de classement non reconnu.');
         }
-        else if (genreDemande === 'femme') {
-            console.log(getRankingWomen(shuffledResultList))
-        }
-        else {
-            console.log("Il y a un problème.")
-        }
-    } else if (typeClassement === 'age') {
-        const ageInf = parseInt(readlineSync.question('Quel âge minimum souhaitez-vous ? : '));
-        const ageSup = parseInt(readlineSync.question('Quel âge maximum souhaitez-vous ? : '));
-        console.log(getRankingByAge(ageInf, ageSup)(shuffledResultList));
-    } else if (typeClassement === 'pays') {
-        const paysDemande = readlineSync.question('Entrez le pays souhaité : ');
-        console.log(getRankingByCountry(paysDemande)(shuffledResultList));
-    } else {
-        console.log('Type de classement non reconnu.');
+
+        state = readlineSync.question('Voulez vous affichez un classement ? (oui/non) ');
     }
+
 };
 
 obtenirClassement();
