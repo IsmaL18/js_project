@@ -2,6 +2,23 @@
   "name": "js_project",
   "version": "1.0.0",
   "dependencies": {
-    "ramda": "^0.29.0"
-  }
+    "ramda": "^0.29.0",
+    "readline-sync": "1.4.10"
+  },
+  "description": "Project for the subject \"JavaScript &amp; Programmation fonctionnelle\". Made by Hanifi Léo, Cornilleau Axel and Debbagh Ismaël.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsmaL18/js_project.git"
+  },
+  "author": "Ismael Debbagh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsmaL18/js_project/issues"
+  },
+  "homepage": "https://github.com/IsmaL18/js_project#readme"
 }
